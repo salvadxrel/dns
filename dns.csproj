@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+  <None Remove="Resources\Images\motherboard.png" />
+  <None Remove="Resources\Images\psu.png" />
+  <None Remove="Resources\Images\ram.png" />
+  <None Remove="Resources\Images\storage.png" />
+  <None Remove="Resources\Images\videocard.png" />
+  <Resource Include="Resources\Images\motherboard.png">
+    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+  </Resource>
+  <Resource Include="Resources\Images\psu.png">
+    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+  </Resource>
+  <Resource Include="Resources\Images\ram.png">
+    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+  </Resource>
+  <Resource Include="Resources\Images\cpu.png">
+    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+  </Resource>
+    <Resource Include="Resources\Images\storage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\videocard.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Icon\" />
+    <Folder Include="Resources\Themes\" />
+  </ItemGroup>
+
+</Project>
