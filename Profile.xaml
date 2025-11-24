@@ -4,6 +4,7 @@
         Title="Профиль — DNS" Height="600" Width="400" MinHeight="750" MinWidth="517"
         FontFamily="Roboto"
         Background="#F8FAFC"
+        Icon="/Resources/Images/logo.png"
         WindowStartupLocation="CenterOwner">
 
     <Window.Resources>

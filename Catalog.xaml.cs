@@ -67,7 +67,7 @@ namespace dns
                 var checkbox = FindCategoryCheckBoxByName(cat.Name);
                 if (checkbox != null && checkbox.Content is string content)
                 {
-                    int countInCategory = filteredProducts.All(p => true) // будем считать из отфильтрованных
+                    int countInCategory = filteredProducts.All(p => true) 
                         ? filteredProducts.Count(p => p.CategoryId == cat.CategoryId)
                         : allProducts.Count(p => p.CategoryId == cat.CategoryId);
                     var parts = content.Split('(');
@@ -147,20 +147,19 @@ namespace dns
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-            // === КОНТЕЙНЕР ДЛЯ ИЗОБРАЖЕНИЯ ===
+            // параметры картинки внутри карточки товара
             var imageContainer = new Border
             {
                 Background = (SolidColorBrush)FindResource("CardBgBrush"),
                 CornerRadius = new CornerRadius(16, 16, 0, 0),
                 ClipToBounds = true,
                 Height = 150,
-                Padding = new Thickness(10)  // ← красивые отступы внутри
+                Padding = new Thickness(10)
             };
 
-            // А теперь важно: меняем Stretch на Uniform, чтобы не растягивать
             var viewbox = new Viewbox
             {
-                Stretch = Stretch.Uniform,           // ← НЕ заполнять, а вписывать
+                Stretch = Stretch.Uniform,   
                 StretchDirection = StretchDirection.Both
             };
 
@@ -171,7 +170,6 @@ namespace dns
                 VerticalAlignment = VerticalAlignment.Center
             };
 
-            // === НАСТРОЙКИ ИЗОБРАЖЕНИЯ ===
             string imageFileName = GetImageFileNameForCategory(product.Category?.Name);
 
             try
@@ -185,7 +183,6 @@ namespace dns
             }
             catch
             {
-                // Плейсхолдер при ошибке загрузки
                 var placeholder = new TextBlock
                 {
                     Text = "No Image",
@@ -197,10 +194,9 @@ namespace dns
                 viewbox.Child = placeholder;
             }
 
-            // Обрезаем изображение по закруглённым углам (если нужно идеальное совпадение)
             if (image.Source != null)
             {
-                image.RenderTransform = new ScaleTransform(1.05, 1.05); // Лёгкий зум для эффекта "приближения"
+                image.RenderTransform = new ScaleTransform(1.05, 1.05);
                 image.RenderTransformOrigin = new Point(0.5, 0.5);
                 Width = 50;
             }

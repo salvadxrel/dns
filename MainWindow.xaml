@@ -4,6 +4,7 @@
         Title="DNS" Height="800" Width="460" MinHeight="800" MinWidth="460"
         WindowStartupLocation="CenterScreen"
         FontFamily="Roboto"
+        Icon="/Resources/Images/logo.png"
         Background="{StaticResource ResourceKey=BgBrush}">
 
     <Grid>

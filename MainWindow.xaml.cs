@@ -30,7 +30,7 @@ namespace dns
 
         private void SwitchMode(bool isRegister)
         {
-            _isRegisterMode = isRegister; // ← Важно! Обновляем флаг
+            _isRegisterMode = isRegister;
 
             if (isRegister)
             {
@@ -56,7 +56,6 @@ namespace dns
                 FullNamePanel.Visibility = Visibility.Collapsed;
                 ConfirmPanel.Visibility = Visibility.Collapsed;
 
-                // Очищаем поля, которые не нужны при входе
                 FullNameBox.Text = "";
                 ((PasswordBox)ConfirmPasswordBox).Password = "";
             }
@@ -105,7 +104,7 @@ namespace dns
             string email = EmailBox.Text.Trim();
             string password = PasswordBox.Password;
             string confirmPassword = ((PasswordBox)ConfirmPasswordBox).Password;
-            string login = _isRegisterMode ? FullNameBox.Text.Trim() : email; // При входе логин может быть email или логин
+            string login = _isRegisterMode ? FullNameBox.Text.Trim() : email;
 
             // Валидация Email
             if (string.IsNullOrWhiteSpace(email))
@@ -130,10 +129,9 @@ namespace dns
                 ShowError(PasswordError, PasswordBox, "Пароль должен быть не менее 6 символов");
                 valid = false;
             }
-
+            // регистрация
             if (_isRegisterMode)
             {
-                // Валидация логина (только при регистрации)
                 if (string.IsNullOrWhiteSpace(login))
                 {
                     ShowError(FullNameError, FullNameBox, "Введите логин");
@@ -149,8 +147,6 @@ namespace dns
                     ShowError(FullNameError, FullNameBox, "Логин не может содержать пробелы");
                     valid = false;
                 }
-
-                // Подтверждение пароля
                 if (string.IsNullOrWhiteSpace(confirmPassword))
                 {
                     ShowError(ConfirmError, (PasswordBox)ConfirmPasswordBox, "Повторите пароль");
@@ -164,10 +160,8 @@ namespace dns
 
                 if (!valid) return;
 
-                // === РЕГИСТРАЦИЯ ===
                 try
                 {
-                    // Проверка на существующего пользователя по логину ИЛИ email
                     bool userExists = _db.User.Any(u => u.Login == login || u.Mail == email);
                     if (userExists)
                     {
@@ -188,11 +182,11 @@ namespace dns
                     {
                         Login = login,
                         Mail = email,
-                        Password = password, // Внимание: В будущем — обязательно хешировать! (BCrypt.Net)
-                        RoleId = 2, // Обычный пользователь
+                        Password = password,
+                        RoleId = 2,
                         CreatedAt = DateOnly.FromDateTime(DateTime.Today),
-                        Phone = null,     // Можно сделать необязательным в БД
-                        Address = null    // Можно сделать необязательным
+                        Phone = null,    
+                        Address = null
                     };
 
                     _db.User.Add(newUser);
@@ -202,21 +196,17 @@ namespace dns
                         MessageBoxButton.OK, MessageBoxImage.Information);
 
                     MessageBox.Show("Регистрация прошла успешно!\nТеперь вы можете войти.", "Успех",
-    MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    // Полностью переключаемся в режим входа
+                        MessageBoxButton.OK, MessageBoxImage.Information);
+                        
                     _isRegisterMode = false;
                     SwitchMode(false);
 
-                    // Очищаем все поля, кроме email (оставляем для удобства)
                     FullNameBox.Text = "";
                     PasswordBox.Password = "";
                     ((PasswordBox)ConfirmPasswordBox).Password = "";
 
-                    // Подставляем email в поле для входа
                     EmailBox.Text = email;
 
-                    // Устанавливаем фокус на пароль — пользователь сразу может ввести пароль и войти
                     PasswordBox.Focus();
                 }
                 catch (Exception ex)
@@ -227,7 +217,7 @@ namespace dns
             }
             else
             {
-                // === ВХОД ===
+                // вход
                 if (!valid) return;
 
                 try
@@ -241,7 +231,6 @@ namespace dns
                         return;
                     }
 
-                    // Сохраняем текущего пользователя
                     CurrentUser.UserId = user.UsersId;
                     CurrentUser.Login = user.Login;
                     CurrentUser.Email = user.Mail;

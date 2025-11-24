@@ -43,7 +43,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Icon\" />
-    <Folder Include="Resources\Themes\" />
   </ItemGroup>
 
 </Project>

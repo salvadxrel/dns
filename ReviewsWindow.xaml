@@ -4,6 +4,7 @@
         Title="Отзывы о товаре" Height="600" Width="700"
         WindowStartupLocation="CenterOwner"
         Background="#F8FAFC"
+        Icon="/Resources/Images/logo.png"
         FontFamily="Segoe UI">
     <Window.Resources>
         <Style x:Key="CloseButtonStyle" TargetType="Button">
